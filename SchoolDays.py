@@ -37,7 +37,7 @@ def build_response(message, session_attributes={}):
 def build_PlainSpeech(body):
     speech = {}
     speech['type'] = 'PlainText'
-    speech['text'] = SchoolDays()
+    speech['text'] = body
     return speech
 
 def build_SimpleCard(title,body):
@@ -52,6 +52,10 @@ def build_SimpleCard(title,body):
 
 def days_intent(event,context):
     return statement("school days left", SchoolDays())
+
+def last_day(event,context):
+    return statement("Last Day of School", "June, Eighth")
+
 
 #required intents
 def cancel_intent():
@@ -74,6 +78,9 @@ def intent_router(event, context):
 
     if intent == "days_intent":
         return days_intent(event,context)
+
+    if intent == "last_day":
+        return last_day(event,context)
 
     # Required Intents
 
