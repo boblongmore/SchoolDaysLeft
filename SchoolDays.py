@@ -53,6 +53,18 @@ def build_SimpleCard(title,body):
 def days_intent(event,context):
     return statement("school days left", SchoolDays())
 
+#required intents
+def cancel_intent():
+    return statement("CancelIntent", "You want to cancel")
+
+
+def help_intent():
+    return statement("CancelIntent", "You want help")
+
+
+def stop_intent():
+    return statement("StopIntent", "You want to stop")
+
 ################################
 # Intent Router
 ################################
@@ -62,6 +74,17 @@ def intent_router(event, context):
 
     if intent == "days_intent":
         return days_intent(event,context)
+
+    # Required Intents
+
+    if intent == "AMAZON.CancelIntent":
+        return cancel_intent()
+
+    if intent == "AMAZON.HelpIntent":
+        return help_intent()
+
+    if intent == "AMAZON.StopIntent":
+        return stop_intent()
 
 ################################
 # Responses
