@@ -46,6 +46,22 @@ def build_SimpleCard(title,body):
     card['title'] = title
     card['content'] = body
     return card
+################################
+# Intents
+################################
+
+def days_intent(event,context):
+    return statement("school days left", SchoolDays())
+
+################################
+# Intent Router
+################################
+
+def intent_router(event, context):
+    intent = event['request']['intent']['name']
+
+    if intent == "days_intent":
+        return days_intent(event,context)
 
 ################################
 # Responses
@@ -72,5 +88,5 @@ def on_launch(event,context):
 def lambda_handler(event, context):
     if event['request']['type'] == "LaunchRequest":
         return on_launch(event,context)
-    #elif event['request']['type'] == "IntentRequest":
-    #    return intent_router(event,context)
+    elif event['request']['type'] == "IntentRequest":
+        return intent_router(event,context)
